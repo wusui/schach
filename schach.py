@@ -44,10 +44,10 @@ def tree_disp(in_data, accum):
                         return 'abcdefgh'[coord[1]]
                     return ''
                 coord = in_data.nxt_move[move_indx]['from']
-                pval = in_data.pos.board.board[coord[0]][coord[1]].upper()
-                if pval == 'P':
+                pval = in_data.pos.board.board[coord[0]][coord[1]]
+                if pval in 'pP':
                     pval = ''
-                return pval + uniquefier()
+                return pval.upper() + uniquefier()
             def takef():
                 rval = ''
                 asq = in_data.nxt_move[move_indx]['former']
@@ -148,5 +148,5 @@ def schach(puzzle):
     return 'Checkmate not found\n'
 
 if __name__ == "__main__":
-    print(schach('7k/Q7/7P/8/8/8/4r3/7K 2'))
+    print(schach('r1n1N1RK/1R2Pk1P/b1qPpB2/r3p2p/2N5/8/8/8 3'))
     #print(schach('kbK5/pp6/1P6/8/8/8/8/R7 3'))
