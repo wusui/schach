@@ -28,12 +28,12 @@ class TreePkt:
     to the board position for to_tp[n]
 
     from_tp is a link back to the tree node that this node branches off of
-    
+
     nxt_move is a dict containing a from_node, a to_node, a former value
     (whatever was on the square before the piece moved there), a special
     character indicator (for pawn promotions, castling, and en apssant moves),
     and a giving check indicator
-    
+
     solv_lev is a class variable storing the n value of this mate in n puzzle
     """
     def __init__(self, pos):

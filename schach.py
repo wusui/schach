@@ -122,7 +122,7 @@ def syntax_check(puzzle):
 def schach(puzzle):
     """
     Main entry point to puzzle solver.
-    
+
     Puzzle is a chess board description with piece locations specified in
     FEN-notation, followed by a move limit (these are mate in x move puzzles)
     The board description and move limit are separated by a blank
