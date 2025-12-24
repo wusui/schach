@@ -119,7 +119,7 @@ def syntax_check(puzzle):
         return "Invalid number of kings"
     return 0
 
-def schach(puzzle):
+def wide_tree(puzzle):
     """
     Main entry point to puzzle solver.
 
@@ -147,6 +147,24 @@ def schach(puzzle):
         lpuzzle = ' '.join([parts[0], str(numb)])
     return 'Checkmate not found\n'
 
+def join_fmoves(ltree):
+    """
+    Convert wide_tree output to narrower tree
+    """
+    def fix_wb_spacing(aline):
+        if (len(aline) - len(aline.strip())) % 8 == 4:
+            return aline + '--'
+        return aline.strip() + '\n'
+    if len(ltree) == 0 or ltree.startswith('Checkmate'):
+        return 'Checkmate not found\n'
+    lparts = ltree.split('\n')
+    return ''.join(list(map(fix_wb_spacing, lparts)))
+
+def schach(puzzle):
+    """
+    Wrap wide_tree output
+    """
+    return join_fmoves(wide_tree(puzzle))
+
 if __name__ == "__main__":
     print(schach('r1n1N1RK/1R2Pk1P/b1qPpB2/r3p2p/2N5/8/8/8 3'))
-    #print(schach('kbK5/pp6/1P6/8/8/8/8/R7 3'))
