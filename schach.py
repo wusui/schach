@@ -160,11 +160,43 @@ def join_fmoves(ltree):
     lparts = ltree.split('\n')
     return ''.join(list(map(fix_wb_spacing, lparts)))
 
+def fmt_1liners(old_answer):
+    """
+    Crunch single paths down into one line
+    """
+    parts = old_answer.split('\n')
+    flimit = max(list(map(lambda a: len(a) - len(a.strip()), parts)))
+    for bpoint in range(flimit - 8, 0, -8):
+        bm_not = []
+        for aline in enumerate(parts):
+            if len(aline[1]) - len(aline[1].strip()) == bpoint:
+                bm_not.append(aline)
+        for entry in bm_not:
+            sec_subl = parts[entry[0] + 2]
+            if len(sec_subl) - len(sec_subl.strip()) != bpoint + 8:
+                parts[entry[0]] += '--'
+        nlist = []
+        mflag = False
+        for nstr in parts:
+            if nstr.endswith('--'):
+                mflag = True
+                nlist.append(nstr)
+            else:
+                if mflag:
+                    nlist.append(nstr.strip() + '\n')
+                    mflag = False
+                else:
+                    nlist.append(nstr + '\n')
+        nlist.append('\n')
+        old_answer = ''.join(nlist)
+        parts = old_answer.split('\n')
+    return old_answer
+
 def schach(puzzle):
     """
     Wrap wide_tree output
     """
-    return join_fmoves(wide_tree(puzzle))
+    return fmt_1liners(join_fmoves(wide_tree(puzzle))).rstrip() + '\n'
 
 if __name__ == "__main__":
     print(schach('r1n1N1RK/1R2Pk1P/b1qPpB2/r3p2p/2N5/8/8/8 3'))
