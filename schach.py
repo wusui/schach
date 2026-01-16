@@ -12,7 +12,7 @@ def tree_disp(in_data, accum):
     deep the move is in the solution tree.  Each move is a response
     to the previous move that is indented four spaces less.
     """
-    def conv_to_alg(move_indx):
+    def conv_to_alg(mv_indx):
         def chk_ind():
             if 'check' in in_data.nxt_move[-1]:
                 if in_data.level == (in_data.solv_lev - 1) * 2:
@@ -31,7 +31,7 @@ def tree_disp(in_data, accum):
                         if dupv == coord:
                             continue
                         if can_attack(in_data.pos.board, dupv,
-                                      in_data.nxt_move[move_indx]['to_move']):
+                                      in_data.nxt_move[mv_indx]['to_move']):
                             dlist.append(dupv)
                     cfail = False
                     for entry in dlist:
@@ -43,28 +43,28 @@ def tree_disp(in_data, accum):
                             return str(8 - coord[0])
                         return 'abcdefgh'[coord[1]]
                     return ''
-                coord = in_data.nxt_move[move_indx]['from']
+                coord = in_data.nxt_move[mv_indx]['from']
                 pval = in_data.pos.board.board[coord[0]][coord[1]]
                 if pval in 'pP':
                     pval = ''
                 return pval.upper() + uniquefier()
             def takef():
                 rval = ''
-                asq = in_data.nxt_move[move_indx]['former']
-                if asq != ' ' or in_data.nxt_move[move_indx]['special'] == 'E':
+                asq = in_data.nxt_move[mv_indx]['former']
+                if asq != ' ' or in_data.nxt_move[mv_indx]['special'] == 'E':
                     rval += 'x'
                     if asq not in 'pP':
                         rval += asq.upper()
-                    afs = in_data.nxt_move[move_indx]['from']
+                    afs = in_data.nxt_move[mv_indx]['from']
                     pval = in_data.pos.board.board[afs[0]][afs[1]]
                     if pval in 'pP':
                         rval = 'abcdefgh'[afs[1]] + rval
                 return rval.strip()
             def stvloc():
-                coord = in_data.nxt_move[move_indx]['to_move']
+                coord = in_data.nxt_move[mv_indx]['to_move']
                 return 'abcdefgh'[coord[1]] + str(8 - coord[0])
             def spec_chk():
-                svalue = in_data.nxt_move[move_indx]['special']
+                svalue = in_data.nxt_move[mv_indx]['special']
                 if svalue in 'NBRQ':
                     return f'({svalue})'
                 if svalue == 'E':
@@ -72,9 +72,9 @@ def tree_disp(in_data, accum):
                 return ''
             return pieceloc() + takef() + stvloc()+ spec_chk() + chk_ind()
         gap = ' ' * in_data.level * 4
-        if in_data.nxt_move[move_indx]['special'] == 'O':
+        if in_data.nxt_move[mv_indx]['special'] == 'O':
             return gap + 'O-O-O' + chk_ind()
-        if in_data.nxt_move[move_indx]['special'] == 'C':
+        if in_data.nxt_move[mv_indx]['special'] == 'C':
             return gap + 'O-O' + chk_ind()
         return gap + mk_astr() + '\n'
     phist = {}
@@ -200,3 +200,4 @@ def schach(puzzle):
 
 if __name__ == "__main__":
     print(schach('r1n1N1RK/1R2Pk1P/b1qPpB2/r3p2p/2N5/8/8/8 3'))
+    #print(schach('3r3k/4Qp1p/p3p3/1p1R4/4b2P/P5R1/1P3PP1/3q2K1 4'))
