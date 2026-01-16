@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Warren Usui, MIT License
+# Copyright (C) 2025, 2026 Warren Usui, MIT License
 """
 Main entry point, syntax checker, and move displayer
 """
